@@ -42,8 +42,8 @@ export const spacing = {
 };
 
 export const itemSizes = {
-  defaultHeight: responsiveSize(30),
-  defaultWidth: responsiveSize(30),
+  defaultHeight: responsiveSize(50),
+  defaultWidth: responsiveSize(50),
 };
 
 export const fontWeights = {

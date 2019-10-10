@@ -7,50 +7,68 @@
 import React, { Component } from 'react';
 import {
   View,
-  TextInput,
   StyleSheet,
-  Text,
 } from 'react-native';
-import _ from 'lodash';
+import { connect } from 'react-redux';
 import NavigationHeader from '../../components/NavigationHeader';
+import UserActions from '../../actions';
+import CommitList from './components/CommitList';
+import Loader from '../../components/Loader';
+import { spacing } from '../../utils/variables';
+import EmptyScreen from '../../components/EmptyScreen';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  loginContainer: {
-    padding: 10,
-    alignItems: 'center',
+  repositoriesContainer: {
+    padding: spacing.semiMedium,
   },
-  textInput: {
-    width: '100%',
-    height: 40,
-    borderBottomColor: 'black',
-    borderBottomWidth: 1,
-  },
-
 });
-
 class Home extends Component {
+  componentDidMount() {
+    this.getUserRepoList();
+  }
 
-  constructor(props) {
-    super(props);
-    this.state = { userName: '' };
+  onRefresh() {
+    this.getUserRepoList();
+  }
+
+  getUserRepoList() {
+    this.props.getHeadlinesRequest();
   }
 
   render() {
-    const { userName } = this.state;
+    const { articlesList } = this.props;
+    const {articles} = articlesList
     return (
       <View style={styles.container}>
         <NavigationHeader
-          title={'HeadLines'}
+          title={'HOME'}
         />
-        <View style={styles.loginContainer}>
-          <Text>HeadLines</Text>
-        </View>
+        {
+          articles && articles.length > 0
+            ? (
+              <CommitList
+                list={articles}
+                onRefresh={() => this.onRefresh()}
+                refreshing={false}
+              />
+            )
+            : <EmptyScreen title={'Sorry! there is not headlines available'} />
+        }
+        {this.props.isLoading && <Loader isAnimating={this.props.isLoading} />}
       </View>
     );
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({ 
+  articlesList: state.getHeadLinesReducer.getHeadLinesResponse,
+  isLoading: state.loaderReducers.isLoading,
+});
+
+const mapDispatchToProps = () => UserActions;
+
+const HomeScreen = connect(mapStateToProps, mapDispatchToProps)(Home);
+export default HomeScreen;
