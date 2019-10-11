@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fontSize: fontSizes.medium,
     color: 'white',
     textAlign: 'center',
-    fontWeight: fontWeights.medium,
+    fontWeight: fontWeights.bold,
   },
   emptyBox: {
     height: itemSizes.defaultHeight,

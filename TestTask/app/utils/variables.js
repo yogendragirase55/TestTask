@@ -1,11 +1,14 @@
 import { responsiveSize } from './utils';
 
 export const UIColors = {
-  navigationBar: '#362f70',
+  navigationBar: 'orange',
   navigationTitle: 'white',
   appBackGroundColor: 'white',
   primaryButton: '#4f5863',
-  primaryButtonTitle: 'white',
+  textTitle: 'black',
+  textDetail: '#434343',
+  loderBackgroundColor: '#00000060',
+  blueColor: 'blue',
 };
 
 export const fontSizes = {

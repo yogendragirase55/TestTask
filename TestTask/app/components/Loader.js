@@ -2,52 +2,92 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View,
-  ActivityIndicator,
   StyleSheet,
+  Dimensions,
+  Animated,
+  Easing,
 } from 'react-native';
-import { UIColors } from '../utils/variables';
+import {
+  itemSizes, UIColors, spacing,
+} from '../utils/variables';
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: UIColors.newAppLoaderWhiteColor,
+    width,
+    height,
+    backgroundColor: UIColors.loderBackgroundColor,
     alignItems: 'center',
     justifyContent: 'center',
-    zIndex: 20,
+    zIndex: spacing.large,
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
   },
-  activityContainer: {
+  loaderbackgroundView: {
+    padding: spacing.semiMedium,
+    backgroundColor: '#EEEEEE',
+    borderRadius: spacing.extraLarge,
+  },
+  loaderContainer: {
+    width: itemSizes.defaultHeight,
+    height: itemSizes.defaultWidth,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+  },
+  redView: {
+    width: spacing.medium,
+    height: spacing.medium,
+    borderRadius: 12.5,
+    backgroundColor: UIColors.navigationBar,
+  },
+  blueView: {
+    width: spacing.medium,
+    height: spacing.medium,
+    borderRadius: 12.5,
+    backgroundColor: UIColors.blueColor,
   },
 });
 
-const LoaderSize = 'large';
+const rotateAnimation = new Animated.Value(0);
 
-const Loader = (props) => {
-  const { isAnimating, color } = props;
+const startAnimation = () => {
+  Animated.timing(
+    rotateAnimation,
+    {
+      toValue: 1,
+      duration: 1000,
+      easing: Easing.linear,
+    },
+  ).start(() => {
+    rotateAnimation.setValue(0);
+    startAnimation();
+  });
+};
+
+const Loader = () => {
+  const spin = rotateAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
   return (
     <View style={styles.container}>
-      <ActivityIndicator
-        animating={isAnimating}
-        style={styles.activityContainer}
-        size={LoaderSize}
-        color={color}
-      />
+      <View style={styles.loaderbackgroundView}>
+        <Animated.View style={[styles.loaderContainer, { transform: [{ rotate: spin }] }]}>
+          <View style={styles.redView} />
+          <View style={styles.blueView} />
+        </Animated.View>
+      </View>
     </View>
   );
 };
+startAnimation();
 
 Loader.propTypes = {
-  isAnimating: PropTypes.bool,
-  color: PropTypes.string,
 };
 
 Loader.defaultProps = {
-  isAnimating: false,
-  color: UIColors.newAppFontBlackColor,
 };
 
 export default Loader;

@@ -1,4 +1,4 @@
 export const screenNames = {
-  HOME_SCREEN: 'Home',
+  HEADLINES_SCREEN: 'HeadLines',
   SPLASH_SCREEN: 'Splash',
 };

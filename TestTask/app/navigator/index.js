@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Splash from '../screens/Splash';
- import Home from '../screens/Home';
+ import HeadLines from '../screens/Headlines';
 import { screenNames } from '../utils/constant';
 
 const MainNavigator = createStackNavigator(
@@ -9,8 +9,8 @@ const MainNavigator = createStackNavigator(
       screen: Splash,
       key: screenNames.SPLASH_SCREEN,
     },
-    Home: {
-      screen: Home,
+    HeadLines: {
+      screen: HeadLines,
       key: screenNames.HOME_SCREEN,
     },
   },

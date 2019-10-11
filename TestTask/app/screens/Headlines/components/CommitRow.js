@@ -13,23 +13,31 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {
-  fontSizes, fontWeights, itemSizes,
+  fontSizes, fontWeights, itemSizes, UIColors, spacing,
 } from '../../../utils/variables';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    marginHorizontal: 10,
-    marginVertical: 5,
-    borderRadius: 2,
-    borderWidth: 1,
-    borderColor: 'grey',
+    padding: spacing.semiMedium,
+    marginHorizontal: spacing.semiMedium,
+    marginVertical: spacing.extraSmall,
+    borderRadius: spacing.borderDouble,
+    borderWidth: spacing.border,
+    borderColor: UIColors.textDetail,
   },
-  message: {
+  messageAuthor: {
+    flex: 1,
+    padding: spacing.semiMedium,
+    alignItems: 'center', 
+    fontWeight: fontWeights.bold,
     fontSize: fontSizes.extraSmall,
-    color: 'black',
+  },
+  messageTitle: {
+    fontSize: fontSizes.extraSmall,
     fontWeight: fontWeights.medium,
+    paddingTop: spacing.semiMedium, 
+    color: UIColors.textDetail,
   },
   authorView: {
     flexDirection: 'row',
@@ -46,14 +54,14 @@ const CommitRow = (props) => {
   const { data } = props;
   return (
     <View style={styles.container}>
-      <Text style={styles.message}>{data.title}</Text>
       <View style={styles.authorView}>
         <Image
           style={styles.avatar}
           source={{ uri: data.urlToImage }}
         />
-        <Text style={[styles.message, {padding: 10,alignItems: 'center'}]}>{data.author}</Text>
+        <Text style={styles.messageAuthor}>{data.author}</Text>
       </View>
+      <Text style={styles.messageTitle}>{data.title}</Text>
     </View>
   );
 };

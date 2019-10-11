@@ -5,9 +5,19 @@
  */
 
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ImageBackground, StyleSheet, Image } from 'react-native';
 import Navigation from '../../utils/navigation';
 import { screenNames, auth } from '../../utils/constant';
+import {images} from '../../assets/images'
+
+const styles = StyleSheet.create({
+
+  splashImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 class Splash extends Component {
   constructor(props) {
@@ -16,22 +26,21 @@ class Splash extends Component {
   }
 
   componentDidMount() {
-    this.goToScreen();
+    setTimeout(() => {
+      this.goToScreen();
+    }, 2000);
   }
 
   goToScreen() {
-      let screenName = screenNames.HOME_SCREEN;
+      let screenName = screenNames.HEADLINES_SCREEN;
       Navigation.sharedInstance().resetRouteName(
         screenName,
       );
- 
   }
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <Text>Splash</Text>
-      </View>
+        <ImageBackground source={images.Logo} resizeMode={'center'} style={styles.splashImage}></ImageBackground>
     );
   }
 }

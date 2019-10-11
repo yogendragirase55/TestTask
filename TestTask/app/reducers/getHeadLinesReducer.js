@@ -12,7 +12,6 @@ function getHeadLinesReducer(state = initialState, action) {
 
   switch (action.type) {
     case GET_HEADLINES_SUCCESS:
-      console.log("HEADLINE DATA====>", action.data)
       return {
         ...state,
         getHeadLinesResponse: action.data,

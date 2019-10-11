@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     padding: spacing.semiMedium,
   },
 });
-class Home extends Component {
+class HeadLines extends Component {
   componentDidMount() {
     this.getUserRepoList();
   }
@@ -40,22 +40,20 @@ class Home extends Component {
 
   render() {
     const { articlesList } = this.props;
-    const {articles} = articlesList
+    const { articles } = articlesList
     return (
       <View style={styles.container}>
         <NavigationHeader
-          title={'HOME'}
+          title={'HEADLINES'}
         />
         {
-          articles && articles.length > 0
-            ? (
-              <CommitList
-                list={articles}
-                onRefresh={() => this.onRefresh()}
-                refreshing={false}
-              />
-            )
-            : <EmptyScreen title={'Sorry! there is not headlines available'} />
+          articles && articles.length > 0 &&
+          <CommitList
+            list={articles}
+            onRefresh={() => this.onRefresh()}
+            refreshing={false}
+          />
+           
         }
         {this.props.isLoading && <Loader isAnimating={this.props.isLoading} />}
       </View>
@@ -70,5 +68,5 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = () => UserActions;
 
-const HomeScreen = connect(mapStateToProps, mapDispatchToProps)(Home);
-export default HomeScreen;
+const HeadLinesScreen = connect(mapStateToProps, mapDispatchToProps)(HeadLines);
+export default HeadLinesScreen;
