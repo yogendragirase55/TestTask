@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   rowTitle: {
     fontSize: fontSizes.extraLarge,
     color: UIColors.textTitle,
-    fontFamily: fontWeights.black,
+    fontWeight: fontWeights.medium,
     padding: spacing.semiMedium,
   },
   headlineImage: {
