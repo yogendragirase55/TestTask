@@ -1,8 +1,13 @@
 /* eslint import/no-unresolved: 0 */
 
-const backbutton = require('./backButton.png');
-const Logo = require('./Logo.png');
+const back = require('./back_black.png');
+const search = require('./search_black.png');
+const share = require('./share_black.png');
+const logo = require('./logo.png');
 
-export const images = { backbutton,
- Logo
+export const images = {
+    back,
+    logo,
+    share,
+    search,
 };
