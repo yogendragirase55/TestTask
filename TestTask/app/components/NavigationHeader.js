@@ -19,12 +19,13 @@ import Navigation from '../utils/navigation';
 import {
   spacing, itemSizes, UIColors, fontSizes, fontWeights,
 } from '../utils/variables';
-//import { logout } from '../utils/serviceManager';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: UIColors.navigationBar,
-    padding: spacing.semiMedium,
+    paddingHorizontal: spacing.semiMedium,
+    paddingVertical: spacing.extraSmall,
+    elevation: 5,
   },
   subContainer: {
     flexDirection: 'row',
@@ -34,64 +35,63 @@ const styles = StyleSheet.create({
   backbutton: {
     width: itemSizes.defaultWidth,
     height: itemSizes.defaultHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backIcon: {
+    width: itemSizes.backIconWidth,
+    height: itemSizes.backIconWidth,
   },
   title: {
-    fontSize: fontSizes.medium,
-    color: 'white',
-    textAlign: 'center',
-    fontWeight: fontWeights.bold,
+    flex: 1,
+    alignItems: 'flex-start',
+    fontSize: fontSizes.small,
+    color: UIColors.textTitle,
   },
   emptyBox: {
     height: itemSizes.defaultHeight,
     width: itemSizes.defaultWidth,
   },
+  logo: {
+    width: itemSizes.navLogoImageWidth,
+    height: itemSizes.navLogoImageHeight,
+  }
 });
 
 class NavigationHeader extends Component {
-  onPressBack() {
-    Navigation.sharedInstance().popScreen();
-  }
+  onPressBack = () => { Navigation.sharedInstance().popScreen(); }
 
-  onPressLogout() {
-   // logout();
-  }
+  onPressLogout() { /*TODO*/ }
 
   render() {
     const {
-      isShowBackButton,
-      isShowLogoutButton,
+      showBackButton,
       title,
+      logo,
+      backgroundColor,
+      showRightImageIcon,
+      rightImageIcon,
+      onPressRightIcon,
     } = this.props;
+
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: backgroundColor }]}>
         <SafeAreaView style={styles.subContainer}>
           {
-            isShowBackButton
-              ? (
-                <TouchableOpacity
-                  style={styles.backbutton}
-                  onPress={() => this.onPressBack()}
-                >
-                  <Image source={images.backbutton} style={styles.backbutton} />
-                </TouchableOpacity>
-              )
-              : (
-                <View style={styles.emptyBox} />
-              )
+            showBackButton && (
+              <TouchableOpacity style={styles.backbutton} onPress={this.onPressBack}>
+                <Image source={images.back} style={styles.backIcon} />
+              </TouchableOpacity>
+            )
           }
-          <Text style={styles.title}>{title}</Text>
+          {title != null && <Text style={styles.title}>{title}</Text>}
+          {logo != null && <Image source={logo} style={styles.logo} />}
           {
-            isShowLogoutButton
-              ? (
-                <TouchableOpacity
-                  style={styles.backbutton}
-                  onPress={() => this.onPressLogout()}
-                >
-                  {/* <Image source={images.logout} style={styles.backbutton} /> */}
+            showRightImageIcon
+              && (
+                <TouchableOpacity style={styles.backbutton} onPress={onPressRightIcon}>
+                  <Image source={rightImageIcon} style={styles.backbutton} />
                 </TouchableOpacity>
-              )
-              : (
-                <View style={styles.emptyBox} />
               )
           }
         </SafeAreaView>
@@ -101,15 +101,25 @@ class NavigationHeader extends Component {
 }
 
 NavigationHeader.propTypes = {
-  isShowBackButton: PropTypes.bool,
+  showBackButton: PropTypes.bool,
+  showRightImageIcon: PropTypes.bool,
   isShowLogoutButton: PropTypes.bool,
   title: PropTypes.string,
+  logo: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  rightImageIcon: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
+  backgroundColor: PropTypes.string,
+  onPressRightIcon: PropTypes.func,
 };
 
 NavigationHeader.defaultProps = {
-  isShowBackButton: false,
+  showBackButton: false,
+  showRightImageIcon: false,
   isShowLogoutButton: false,
-  title: 'TestApp',
+  title: null,
+  logo: null,
+  rightImageIcon: null,
+  backgroundColor: UIColors.navigationBar,
+  onPressRightIcon: () => {},
 };
 
 export default NavigationHeader;

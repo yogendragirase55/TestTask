@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import {
   fontSizes, fontWeights,
 } from '../utils/variables';
+import { Localization } from '../utils/localization';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,7 +42,7 @@ EmptyScreen.propTypes = {
 };
 
 EmptyScreen.defaultProps = {
-  title: 'No content',
+  title: Localization.NO_CONTENT,
 };
 
 export default EmptyScreen;

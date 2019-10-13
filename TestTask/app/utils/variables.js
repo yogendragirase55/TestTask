@@ -1,4 +1,9 @@
+import {
+  Dimensions,
+} from 'react-native';
 import { responsiveSize } from './utils';
+
+const { width, height } = Dimensions.get('window');
 
 export const UIColors = {
   navigationBar: 'orange',
@@ -47,6 +52,10 @@ export const spacing = {
 export const itemSizes = {
   defaultHeight: responsiveSize(50),
   defaultWidth: responsiveSize(50),
+  navLogoImageWidth: responsiveSize(150),
+  navLogoImageHeight: responsiveSize(50),
+  backIconWidth: responsiveSize(30),
+  headlineImageInDetail: responsiveSize(width - 20)
 };
 
 export const fontWeights = {

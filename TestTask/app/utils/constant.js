@@ -1,4 +1,5 @@
 export const screenNames = {
-  HEADLINES_SCREEN: 'HeadLines',
   SPLASH_SCREEN: 'Splash',
+  HEADLINES_SCREEN: 'HeadLines',
+  HEADLINES_DETAIL: 'HeadlinesDetail'
 };

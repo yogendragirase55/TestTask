@@ -31,7 +31,7 @@ import { showPopupAlertWithTitle } from '../../utils/showAlert';
 function* getHeadlines(action) {
   try {
     yield put(showLoader());
-    const url = getHeadlinesUrl(action.repo);
+    const url = getHeadlinesUrl(action.search);
     const response = yield call(
       apiCall,
       url,
