@@ -10,6 +10,8 @@ import {
   StyleSheet,
   Text,
   Image,
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     marginVertical: spacing.extraSmall,
     borderRadius: spacing.borderDouble,
     borderWidth: spacing.border,
-    borderColor: UIColors.textDetail,
+    borderColor: 'green',
   },
   messageAuthor: {
     flex: 1,
@@ -50,10 +52,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const CommitRow = (props) => {
-  const { data } = props;
+const HeadlineRow = (props) => {
+  const { data, onPressRow } = props;
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => onPressRow(data)}
+    >
       <View style={styles.authorView}>
         <Image
           style={styles.avatar}
@@ -62,16 +67,16 @@ const CommitRow = (props) => {
         <Text style={styles.messageAuthor}>{data.author}</Text>
       </View>
       <Text style={styles.messageTitle}>{data.title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-CommitRow.propTypes = {
+HeadlineRow.propTypes = {
   data: PropTypes.object,
 };
 
-CommitRow.defaultProps = {
+HeadlineRow.defaultProps = {
   data: {},
 };
 
-export default CommitRow;
+export default HeadlineRow;

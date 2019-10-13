@@ -11,7 +11,6 @@ import { screenNames, auth } from '../../utils/constant';
 import {images} from '../../assets/images'
 
 const styles = StyleSheet.create({
-
   splashImage: {
     flex: 1,
     justifyContent: 'center',
@@ -40,7 +39,10 @@ class Splash extends Component {
 
   render() {
     return (
-        <ImageBackground source={images.Logo} resizeMode={'center'} style={styles.splashImage}></ImageBackground>
+        <ImageBackground
+          source={images.logo}
+          resizeMode={'center'}
+          style={styles.splashImage}/>
     );
   }
 }
